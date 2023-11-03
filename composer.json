@@ -1,0 +1,18 @@
+{
+    "name": "freshtag/laravel-wordpress-plugin",
+    "description": "Use a Laravel app as Wordpress plugin",
+    "version": "dev-master",
+    "require": {
+        "laravel/framework": "^9.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "FreshTag\\LaravelWordpressPlugin\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "FreshTag"
+        }
+    ]
+}
