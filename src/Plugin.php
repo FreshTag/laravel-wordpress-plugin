@@ -24,15 +24,19 @@ class Plugin
     /** @var string $basePath Root dir of plugin */
     private string $basePath;
 
+    /** @var string override laravel default 'app' */
+    private string $appPath;
+
     /** @var Application  */
     private Application $application;
 
     /**
      * @param string $basePath
      */
-    protected function __construct(string $basePath)
+    protected function __construct(string $basePath, string $appPath = 'app')
     {
         $this->basePath = $basePath;
+        $this->appPath = $appPath;
     }
 
     /**
@@ -41,6 +45,7 @@ class Plugin
     public function bootstrap(): self
     {
         $this->application = new Application($this->basePath);
+        $this->application->useAppPath($this->appPath);
 
         $this->application->singleton(
             \Illuminate\Contracts\Console\Kernel::class,

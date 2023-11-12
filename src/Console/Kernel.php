@@ -3,10 +3,26 @@
 namespace FreshTag\LaravelWordpressPlugin\Console;
 
 use Illuminate\Console\Scheduling\Schedule;
+use Illuminate\Contracts\Events\Dispatcher;
+use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 
 class Kernel extends ConsoleKernel
 {
+    private array $commandDirs;
+
+    public function __construct(Application $app, Dispatcher $events)
+    {
+        parent::__construct($app, $events);
+
+        $this->commandDirs = [__DIR__.'/Commands'];
+    }
+
+    public function addCommandDir($path): void
+    {
+        $this->commandDirs[] = $path;
+    }
+
     /**
      * Define the application's command schedule.
      *
@@ -25,8 +41,6 @@ class Kernel extends ConsoleKernel
      */
     protected function commands()
     {
-        $this->load(__DIR__.'/Commands');
-
-        //        require base_path('routes/console.php');
+        $this->load($this->commandDirs);
     }
 }
